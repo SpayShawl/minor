@@ -1,0 +1,27 @@
+{
+  "name": "minor",
+  "version": "1.0.0",
+  "description": "Minor is a minesweeper game",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch",
+    "eslint": "eslint '**/js/*.js'"
+  },
+  "author": "Spay Shawl",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.8.2",
+    "css-loader": "^5.0.1",
+    "eslint": "^7.16.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.12.3",
+    "webpack-cli": "^4.3.1"
+  },
+  "dependencies": {}
+}

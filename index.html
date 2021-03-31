@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Minor</title>
+    <link rel="icon" href="src/icon.svg"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <script src="dist/app.bundle.js" defer></script>
+</head>
+<body id="body">
+    <header id="header">
+        <i id="reset" class="fas fa-redo"></i>
+        <nav id="difficulty-picker">
+            <button class="difficulty" data-value="easy">FACILIS</button>
+            <button class="difficulty" data-value="medium">MODUS</button>
+            <button class="difficulty" data-value="hard">ECDURUS</button>
+            <button class="difficulty" data-value="incredible">INCREDIBILIS</button>
+        </nav>
+    </header>
+    <main id="main">
+        <div id="chrono">0S</div>
+        <div id="themes">
+            <button id="wringing"></button>
+            <div id="dark">
+                <button class="theme-picker" id="picker-db" data-value="dark-blue"></button>
+                <button class="theme-picker" id="picker-dy" data-value="dark-yellow"></button>
+                <button class="theme-picker" id="picker-dr" data-value="dark-red"></button>
+                <button class="theme-picker" id="picker-dg" data-value="dark-green"></button>
+            </div>
+            <div id="light">
+                <button class="theme-picker" id="picker-lb" data-value="light-blue"></button>
+                <button class="theme-picker" id="picker-ly" data-value="light-yellow"></button>
+                <button class="theme-picker" id="picker-lr" data-value="light-red"></button>
+                <button class="theme-picker" id="picker-lg" data-value="light-green"></button>
+            </div>
+            <button class="theme-picker" id="picker-rb" data-value="rainbow"></button>
+        </div>
+        <div id="grid"></div>
+        <div id="nbBomb">SPECUS :</div>
+        <div id="end">GRATIAS LUDENS</div>
+        <label class="switch" for="leftFlag">
+            <input type="checkbox" id="leftFlag">
+            <span class="slider"></span>
+        </label>
+    </main>
+    <footer>
+        <p>Develop by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
+        <p>Inspired by <a href="https://play.google.com/store/apps/developer?id=Dustland+Design&hl=fr"> Dustland Design</a></p>
+    </footer>
+</body>
+</html>
