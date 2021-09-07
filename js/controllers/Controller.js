@@ -5,9 +5,9 @@ import ClickController from "./ClickController";
 import ThemeController from "./ThemeController";
 import FlagController from "./FlagController";
 import DifficultyController from "./DifficultyController";
-import Ctrl from "../-.- --- -. .- --/-.-. - .-. .-..";
 
 export default class Controller {
+  static seed = "";
   static bombs = [];
   static maxLine = 0;
   static maxColumn = 0;
@@ -36,13 +36,28 @@ export default class Controller {
     new ThemeController();
     new FlagController();
     new DifficultyController(this);
-    new Ctrl();
   }
 
   registerListeners() {
     document
       .getElementById("reset")
-      .addEventListener("click", this.reset.bind(this));
+      .addEventListener("click", this.reset.bind(this, ""));
+
+      document
+      .getElementById("input-seed")
+      .addEventListener("focusout", this.setSeed.bind(this));
+
+      document
+      .getElementById("seed")
+      .addEventListener("click", this.handleCopySeed.bind(this));
+  }
+
+  handleCopySeed(event) {
+    navigator.clipboard.writeText(event.srcElement.textContent);
+  }
+
+  setSeed(event){
+    this.reset(event.target.value);
   }
 
   /**
@@ -70,14 +85,54 @@ export default class Controller {
       }
       this.grid.appendChild(htmlLine);
     }
+    if(Controller.seed !== ""){
+      this.loadSeed();
+    }
     this.updateBombsNumber();
+  }
+
+  loadSeed() {
+    const splitSeed = Controller.seed.split("-");
+    const bombs = splitSeed[0];
+    const splitBombs = bombs.split(" ");
+    const openAt = parseInt(splitSeed[1], 36).toString(10);
+    for(let i = 0; i < Controller.maxLine; i++) {
+      const convert = this.complete(parseInt(splitBombs[i], 36).toString(2));
+      for (var j = 0; j < convert.length; j++) {
+        const value = convert.charAt(j);
+        if (value === "1") {
+          Controller.bombs.push(new Square(i, j));
+        }
+      }
+    }
+
+    const doc = document.querySelector(`[data-line="${openAt.charAt(1) ? openAt.charAt(0) : 0}"][data-column="${openAt.charAt(1) ? openAt.charAt(1) : openAt.charAt(0)}"]`);
+    this.clickController.leftClick({target: doc}, false);
+  } 
+
+  complete(n) {
+    let final = n;
+    for(let i = n.length; i < Controller.maxColumn; i++) {
+      final = "0" + final;
+    }
+    return final;
   }
 
   /**
    * Reset the grid
    * @return {void}
    */
-  reset() {
+  reset(seed) {
+    Controller.seed = seed ? seed : "";
+    if (!seed || seed === "") {
+      document.getElementById("input-seed").style.display = "block";
+      document.getElementById("seed").style.display = "none";
+    }
+    else if(seed && seed !== "") {
+      document.getElementById("input-seed").style.display = "none";
+      document.getElementById("input-seed").value = "";
+      document.getElementById("seed").style.display = "block";
+    }
     this.grid.innerHTML = "";
     this.chrono.resetChrono();
     this.playing = true;
@@ -164,6 +219,23 @@ export default class Controller {
       return range.length > 0;
     });
 
+    const test = Array(Controller.maxLine).fill(0).map(x => Array(Controller.maxColumn).fill(0))
+    Controller.bombs.forEach(b => {
+      test[b.line][b.column] = 1;
+    })
+
+
+    for(let i = 0; i < Controller.maxLine; i++) {
+      const number = parseInt(test[i].join(""));
+      Controller.seed += `${parseInt(number, 2).toString(36).toUpperCase()}${i != Controller.maxLine - 1 ? " " : ""}`;
+    }
+    const clickedAt = `${click.line}${click.column}`;
+    Controller.seed += ` - ${parseInt(clickedAt, 10).toString(36).toUpperCase()}`;
+
+    document.getElementById("input-seed").style.display = "none";
+    document.getElementById("seed").style.display = "block";
+    document.getElementById("seed").textContent = Controller.seed;
+
     this.chrono.startChrono();
 
     document.getElementById(
@@ -192,10 +264,12 @@ export default class Controller {
         !htmlSquare.className.includes("opened") &&
         !htmlSquare.className.includes("flag")
       ) {
-        htmlSquare.children[1].textContent =
-          closeBombs.length > 0 ? closeBombs.length.toString() : "";
+        const closeBomb = closeBombs.length > 0 ? closeBombs.length.toString() : "";
+
+        htmlSquare.children[1].textContent = closeBomb;
         htmlSquare.className = htmlSquare.className.replace("unknown", "");
-        htmlSquare.className += " opened";
+        htmlSquare.className += " opened ";
+        htmlSquare.className += `b-${closeBomb}`;
         if (closeBombs.length === 0) {
           squareInRange.forEach((s) => {
             this.openSquare(s, bypass, false);

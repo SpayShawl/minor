@@ -41,7 +41,7 @@ export default class DifficultyController {
     Controller.nbBombs = params.bombs;
     Controller.maxLine = params.line;
     Controller.maxColumn = params.column;
-    this.controller.reset();
+    this.controller.reset("");
   }
 
   /**

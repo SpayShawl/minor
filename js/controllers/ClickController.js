@@ -1,4 +1,5 @@
 import Square from "../metier/Square";
+import Controller from "./Controller";
 
 export default class ClickController {
   /**
@@ -35,7 +36,7 @@ export default class ClickController {
       const target = event.target.className.includes("square")
         ? event.target
         : event.target.parentElement;
-      if (this.click.line === undefined) this.controller.createBombs(target);
+      if (this.click.line === undefined && Controller.bombs.length === 0) this.controller.createBombs(target);
       this.click.line = parseInt(target.dataset.line);
       this.click.column = parseInt(target.dataset.column);
       this.controller
@@ -61,7 +62,7 @@ export default class ClickController {
         ? event.target
         : event.target.parentElement;
       let isFirstClick = false;
-      if (this.click.line === undefined) {
+      if (this.click.line === undefined && Controller.bombs.length === 0) {
         isFirstClick = true;
         this.controller.createBombs(target);
       }

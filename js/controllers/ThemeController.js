@@ -1,20 +1,14 @@
-import RainbowController from "./RainbowController";
-
 export default class ThemeController {
   /**
    * Represent the theme controller
    * @return {ThemeController}
    */
   constructor() {
-    this.rainbow = new RainbowController();
     this.addEventListeners();
     this.loadTheme();
   }
 
   addEventListeners() {
-    document
-      .getElementById("wringing")
-      .addEventListener("click", this.wringing.bind(this));
     document
       .querySelectorAll(".theme-picker")
       .forEach((picker) =>
@@ -32,18 +26,8 @@ export default class ThemeController {
   loadTheme() {
     const theme = sessionStorage.getItem("theme")
       ? sessionStorage.getItem("theme")
-      : "dark-blue";
+      : "default";
     this.changeTheme(theme);
-  }
-
-  /**
-   * Open or close the theme selection
-   * @return {void}
-   */
-  wringing() {
-    !this.isOpen()
-      ? (document.getElementById("themes").style.height = "45em")
-      : (document.getElementById("themes").style.height = "4em");
   }
 
   /**
@@ -66,6 +50,5 @@ export default class ThemeController {
       bodys[i].id = `theme-${theme}`;
       bodys[i].style.backgroundColor = null;
     }
-    theme === "rainbow" ? this.rainbow.playTheme() : this.rainbow.stopTheme();
   }
 }
