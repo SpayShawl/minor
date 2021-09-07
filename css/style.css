@@ -255,6 +255,7 @@ header {
 
 /* Hide default HTML checkbox */
 .switch input {
+    -moz-appearance: none;
     width: 0;
     height: 0;
 }
