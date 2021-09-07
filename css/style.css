@@ -50,7 +50,7 @@ header {
     background-color: #202225;
     padding: 1em;
     margin-bottom: 2em;
-    transition: height 500ms ease;
+    transition: height 100ms ease;
 }
 
 #themes:hover {
@@ -221,13 +221,13 @@ header {
     z-index: -1;
     opacity: 0;
     position:absolute;
-    width: fit-content;
     top: 50%;
     left:0;
     right:0;
     margin: auto;
     font-size: larger;
     text-decoration: overline;
+    text-align: center;
     transition: opacity 1s ease;
 }
 
