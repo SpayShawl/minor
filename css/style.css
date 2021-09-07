@@ -294,6 +294,14 @@ footer {
     font-size: 0.9rem;
 }
 
+
+#seed {
+    width: 20%;
+    height: 18px;
+    text-align: end;
+    overflow: hidden;
+}
+
 #seed:hover {
     cursor: pointer;
 }

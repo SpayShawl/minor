@@ -95,7 +95,7 @@ export default class Controller {
     const splitSeed = Controller.seed.split("-");
     const bombs = splitSeed[0];
     const splitBombs = bombs.split(" ");
-    const openAt = parseInt(splitSeed[1], 36).toString(10);
+    const openAt = splitSeed[1].split(" ");
     for(let i = 0; i < Controller.maxLine; i++) {
       const convert = this.complete(parseInt(splitBombs[i], 36).toString(2));
       for (var j = 0; j < convert.length; j++) {
@@ -106,7 +106,9 @@ export default class Controller {
       }
     }
 
-    const doc = document.querySelector(`[data-line="${openAt.charAt(1) ? openAt.charAt(0) : 0}"][data-column="${openAt.charAt(1) ? openAt.charAt(1) : openAt.charAt(0)}"]`);
+    const x = parseInt(openAt[1], 36).toString(10);
+    const y = parseInt(openAt[2], 36).toString(10);
+    const doc = document.querySelector(`[data-line="${x}"][data-column="${y}"]`);
     this.clickController.leftClick({target: doc}, false);
   } 
 
@@ -131,6 +133,7 @@ export default class Controller {
     else if(seed && seed !== "") {
       document.getElementById("input-seed").style.display = "none";
       document.getElementById("input-seed").value = "";
+      document.getElementById("seed").textContent = seed;
       document.getElementById("seed").style.display = "block";
     }
     this.grid.innerHTML = "";
@@ -229,8 +232,8 @@ export default class Controller {
       const number = parseInt(test[i].join(""));
       Controller.seed += `${parseInt(number, 2).toString(36).toUpperCase()}${i != Controller.maxLine - 1 ? " " : ""}`;
     }
-    const clickedAt = `${click.line}${click.column}`;
-    Controller.seed += ` - ${parseInt(clickedAt, 10).toString(36).toUpperCase()}`;
+    Controller.seed += ` - ${parseInt(click.line.toString(), 10).toString(36).toUpperCase()} `;
+    Controller.seed += `${parseInt(click.column.toString(), 10).toString(36).toUpperCase()}`;
 
     document.getElementById("input-seed").style.display = "none";
     document.getElementById("seed").style.display = "block";
