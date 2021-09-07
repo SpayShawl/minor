@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+#theme-8-bits, #theme-8-bits header{
+    background-color: #36393F !important;
+    color: #F9F9F9 !important;
+}
+
+#theme-8-bits .difficulty{
+    color: #F9F9F9 !important;
+    background-color: #36393F !important;
+    border-color: #F9F9F9 !important;
+}
+
+#theme-8-bits .difficulty:hover{
+    background-color: #F9F9F9 !important;
+    color: #36393F !important;
+}
+
+#theme-8-bits #game {
+    font-family: 'Press Start 2P', cursive;
+}
+
+#theme-8-bits .opened {
+    color: #D7E894 !important;
+    background-color: #527F39 !important;
+}
+
+#theme-8-bits .opened:before,
+#theme-8-bits .opened:after,
+#theme-8-bits .opened span:before,
+#theme-8-bits .opened span:after {
+    border-color: #D7E894 !important;
+    opacity: 0.15;
+}
+
+#theme-8-bits .unknown {
+    background-color: #AEC440 !important;
+}
+
+#theme-8-bits .bomb {
+    color: #527F39!important;
+    background-color: #204631 !important;
+}
+
+#theme-8-bits .flag {
+    color: #D7E894!important;
+    background-color: #527F39 !important;
+}
+
+#theme-8-bits a{
+    color: #F9F9F9 !important;
+}

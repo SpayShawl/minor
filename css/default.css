@@ -1,0 +1,79 @@
+#theme-default, #theme-default header{
+    background-color: #36393F !important;
+    color: #F9F9F9 !important;
+}
+
+#theme-default .difficulty{
+    color: #F9F9F9 !important;
+    background-color: #36393F !important;
+    border-color: #F9F9F9 !important;
+}
+
+#theme-default .difficulty:hover{
+    background-color: #F9F9F9 !important;
+    color: #36393F !important;
+}
+
+#theme-default .opened {
+    background-color: #36393F !important;
+}
+
+#theme-default .b-1 {
+    color: #58DBC9 !important;
+}
+
+#theme-default .b-2 {
+    color: #58DB7E !important;
+}
+
+#theme-default .b-3 {
+    color: #A1DB58 !important;
+}
+
+#theme-default .b-4 {
+    color: #DBD758 !important;
+}
+
+#theme-default .b-5 {
+    color: #DB9258 !important;
+}
+
+#theme-default .b-6 {
+    color: #db5858 !important;
+}
+
+#theme-default .b-7 {
+    color: #B158DB !important;
+}
+
+#theme-default .b-8 {
+    color: #DB58C9 !important;
+}
+
+#theme-default .opened:before,
+#theme-default .opened:after,
+#theme-default .opened span:before,
+#theme-default .opened span:after {
+    border-color: #40444B !important;
+}
+
+#theme-default .unknown {
+    background-color: #B9BBBE !important;
+}
+
+#theme-default .bomb,
+#theme-default .flag  {
+    background-color: #F9F9F9 !important;
+}
+
+#theme-default .bomb {
+    background-color: #CF7F7F !important;
+}
+
+#theme-default .flag {
+    background-color: #B9BBBE !important;
+}
+
+#theme-default a{
+    color: #F9F9F9 !important;
+}
