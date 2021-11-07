@@ -1,0 +1,43 @@
+.overlay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15pt;
+    height: 3em;
+}
+
+.overlay div {
+    width: 200px;
+}
+
+.overlay .joker {
+    margin-left: 2em;
+    font-size: 20pt;
+}
+
+.overlay .seed {
+    text-align: end;
+    margin-right: 2em;
+}
+
+.overlay .seed:hover {
+    cursor: pointer;
+}
+
+.overlay .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay .controls * {
+    width: 50%;
+}
+
+.overlay .controls #reset {
+    margin-right: 2mm;
+    font-family: "Font Awesome 5 Free", serif;
+    transform-origin: right;
+    transition: transform 250ms ease;
+    text-align: end;
+}

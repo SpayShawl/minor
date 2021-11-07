@@ -4,43 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Minor</title>
-    <link rel="icon" href="src/icon.svg"/>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="src/assets/icon.svg" />
+    <!-- Global styles -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Modules styles -->
+    <link rel="stylesheet" href="src/css/modules/overlay.css">
+    <!-- Themes styles -->
+    <link rel="stylesheet" href="src/css/themes/default.css">
+    <link rel="stylesheet" href="src/css/themes/8bits.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" type="text/css">
-    <script src="dist/app.bundle.js" defer></script>
+    <script src="dist/bundle.js" defer></script>
 </head>
 <body id="body">
+    <audio id="typing" src="src/assets/audio/typing.mp3">
+    </audio>
+    <audio id="left" src="src/assets/audio/left.mp3">
+    </audio>
+    <audio id="right" src="src/assets/audio/right.mp3">
+    </audio>
+    <audio id="music0" src="src/assets/audio/surface-tension.mp3">
+    </audio>
+    <audio id="music1" src="src/assets/audio/tropic-of-capricorn.mp3">
+    </audio>
+    <audio id="music2" src="src/assets/audio/moisiture.mp3">
+    </audio>
     <header id="header">
         <div id="themes">
             <button class="theme-picker" id="picker-default" data-value="default">8</button>
             <button class="theme-picker" id="picker-bits" data-value="8-bits">8</button>
         </div>
         <nav id="difficulty-picker">
-            <button class="difficulty" data-value="easy">FACILIS</button>
-            <button class="difficulty" data-value="medium">MODUS</button>
-            <button class="difficulty" data-value="hard">ECDURUS</button>
-            <button class="difficulty" data-value="incredible">INCREDIBILIS</button>
+            <button class="difficulty crypted" data-value="easy">FACILIS</button>
+            <button class="difficulty crypted" data-value="medium">MODUS</button>
+            <button class="difficulty crypted" data-value="hard">ECDURUS</button>
+            <button class="difficulty crypted" data-value="incredible">INCREDIBILIS</button>
         </nav>
-        <div id="controls">
-            <i id="reset" class="fas fa-hourglass-start"></i>
-            <div id="chrono">0S</div>
-        </div>
+        <div class="overlay">
+            <div class="joker">
+                <p>🃏</p>
+            </div>
+            <div class="controls">
+                <i id="reset" class="fas fa-hourglass-start"></i>
+                <div class="chrono">0S</div>
+                </div>
+                <div class="seed">
+                    <p>#SEED</p>
+                </div>
+                </div>
     </header>
     <main id="main">
+        <div id="emitter"></div>
         <div id="game">
             <div id="grid"></div>
         </div>
-        <div id="nbBomb">SPECUS :</div>
-        <div id="end">GRATIAS LUDENS</div>
+        <!--<div class="buttons">
+                                    <button class="button">Ludere</button>
+                                </div>-->
+        <div id="nbBomb" class="crypted">SPECUS :</div>
+        <div id="end" class="crypted">GRATIAS LUDENS !</div>
         <label class="switch" for="leftFlag">
             <input type="checkbox" id="leftFlag">
             <span class="slider"></span>
         </label>
     </main>
+    <div id="seedModal" class="hiddenKeyboard">
+        <div id="content">
+            <p id="value" class="placeholder">#SEED</p>
+            <span class="blinker"></span>
+        </div>
+        <div id="keyboard">
+            <div class="row">
+                <div class="key" id="1">1</div>
+                <div class="key" id="2">2</div>
+                <div class="key" id="3">3</div>
+                <div class="key" id="4">4</div>
+                <div class="key" id="5">5</div>
+                <div class="key" id="6">6</div>
+                <div class="key" id="7">7</div>
+                <div class="key" id="8">8</div>
+                <div class="key" id="9">9</div>
+                <div class="key" id="0">0</div>
+                <div class="key" id="BACKSPACE">←</div>
+            </div>
+            <div class="row">
+                <div class="key" id="A">A</div>
+                <div class="key" id="Z">Z</div>
+                <div class="key" id="E">E</div>
+                <div class="key" id="R">R</div>
+                <div class="key" id="T">T</div>
+                <div class="key" id="Y">Y</div>
+                <div class="key" id="U">U</div>
+                <div class="key" id="I">I</div>
+                <div class="key" id="O">O</div>
+                <div class="key" id="P">P</div>
+            </div>
+            <div class="row">
+                <div class="key" id="Q">Q</div>
+                <div class="key" id="S">S</div>
+                <div class="key" id="D">D</div>
+                <div class="key" id="F">F</div>
+                <div class="key" id="G">G</div>
+                <div class="key" id="H">H</div>
+                <div class="key" id="J">J</div>
+                <div class="key" id="K">K</div>
+                <div class="key" id="L">L</div>
+                <div class="key" id="M">M</div>
+                <div class="key" id="ENTER">↲</div>
+            </div>
+            <div class="row">
+                <div class="key" id="W">W</div>
+                <div class="key" id="X">X</div>
+                <div class="key" id="C">C</div>
+                <div class="key" id="V">V</div>
+                <div class="key" id="B">B</div>
+                <div class="key" id="N">N</div>
+            </div>
+        </div>
+    </div>
+    <section class="rules">
+        <h1>Règles</h1>
+        <article>
+            <h2>°But du jeu°</h2>
+            <p>
+                L'objectif est de <span class="colored">localiser</span> des <span class="colored">mines</span> cachées dans
+                une
+                grille représentant un champ de mines virtuel, avec pour seule indication le nombre de mines dans les zones
+                adjacentes.
+            </p>
+        </article>
+        <article>
+            <h2>°Comment jouer ?°</h2>
+            <p>
+                Pour commencer une partie, cliquez sur le bouton <span class="colored">"Ludere"</span> au milieu de la
+                grille.
+                Ainsi, vous allez générer un champ de mines aléatoire.<br>
+                Vous pouvez ensuite utiliser les différents contrôles <span class="italic">(voir fonctionnalités)</span>
+                afin d'interagir avec la grille.
+                Une fois que vous aurez trouvé <span class="colored">toutes les mines</span> et sécurisé le reste des cases
+                la partie prendra
+                fin et vous pourrez enregistrer votre temps.
+            </p>
+        </article>
+        <article>
+            <h2>°Fonctionnalités°</h2>
+            <h3>Contrôles</h3>
+            <ul>
+                <li>Clic gauche: Révéler une case</li>
+                <li>Clic droits: Poser un drapeau</li>
+                <li>Clic molette: Utiliser un joker</li>
+                <li>Shift: Ouvrir le menu de saisie</li>
+                <li>Echap: Quitter le menu de saisie</li>
+            </ul>
+            <h3>Inverser les clics</h3>
+            <p>Si vous préférer utiliser le clic gauche pour poser un drapeau, vous pouvez cocher le bouton en forme de
+                drapeau <span class="colored">en dessous</span> de la grille de jeu.</p>
+            <h3>Difficultés</h3>
+            <p>Vous pouvez choisir la difficulté de la grille avec les boutons <span class="colored">du
+                    dessus</span>.
+                Chaque difficulté augmente la taille de la grille, le nombre de bombes et de jokers disponibles.</p>
+            <h3>Jokers</h3>
+            <p>Les jokers sont représentés par le <span class="colored">symbole 🃏</span> en haut à gauche de la grille.
+                Ils vous permettent avec un <span class="colored">clic molette</span> d'automatiquement sécuriser une
+                case.<br>
+                Ils permettent d'outrepasser la chance si vous êtes dans un cas où il n'est pas possible de savoir
+                où se trouve une bombe.
+                Vous pouvez aussi les utiliser pour sortir d'une <span class="colored">situation difficile</span> et gagner
+                du temps.<br><br>
+                À vous de choisir la stratégie que vous emploierez !
+            </p>
+            <h3>Seeds</h3>
+            <h4>Récupérer la seed</h4>
+            <p>Chaque fois que vous lancez une partie une <span class="colored">seed aléatoire</span> est utilisée.
+                Celle-ci est affichée en haut à droite de la grille, vous pouvez cliquer dessus pour la copier.<br>
+                Vous pouvez la <span class="colored">partager</span> avec vos amis afin qu'ils puissent aussi jouer une
+                copie de votre grille.<br>
+                Pratique pour se défier =)
+            </p>
+            <h4>Saisir une seed</h4>
+            <p>C'est bien beau d'avoir une seed, mais comment la saisir ? Ils vous suffit d'appuyer sur la touche <span
+                    class="colored">"Shift"</span>, un
+                clavier virtuel apparaîtra.<br>
+                Il ne vous reste plus qu'a saisir la seed voulu et à appuyer sur <span class="colored">"Entrer"</span>.
+                Une fois que vous cliquerez sur <span class="colored">"Jouer"</span>, la partie se lancera avec la seed
+                donnée.
+            </p>
+            <h3>Thèmes</h3>
+            <p>Si vous trouvez le thème visuel de la grille trop banale, vous pouvez le changer à tout instant en passant
+                votre curseur sur la <span class="colored">bande foncée</span> en haut de l'écran</p>
+    
+            <h3>Musiques & Sons</h3>
+            <p>Les sons et les musiques sont joués <span class="colored">automatiquement</span>.
+                Si vous ne les voulez pas, vous pouvez désactiver le son de la fenêtre depuis votre navigateur.</p>
+        </article>
+    </section>
     <footer>
-        <p>V2.0.4 - Developed by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
-        <p id="seed" style="display: none;"></p>
-        <input type="text" id="input-seed" placeholder="SEED : ">
+        <p>V2.3.7 - Developed by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
     </footer>
 </body>
+<script>
+</script>
 </html>
