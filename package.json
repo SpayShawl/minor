@@ -1,6 +1,6 @@
 {
   "name": "minor",
-  "version": "2.4.0",
+  "version": "2.4.2",
   "main": "src/app.ts",
   "repository": "https://github.com/SpayShawl/minor.git",
   "author": "Spay Shawl <spayshawl@gmail.com>",
