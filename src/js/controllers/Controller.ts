@@ -163,12 +163,12 @@ export default class Controller {
       !htmlSquare.className.includes("opened") &&
       !htmlSquare.className.includes("flag")
     ) {
-      playSound(document.querySelector('#left'), 0.1)
+      playSound(document.querySelector('#left'), 0.3)
       this.flagsPosed++;
       htmlSquare.className += " flag";
       htmlSquare.children[1].textContent = "";
     } else if (htmlSquare.className.includes("flag")) {
-      playSound(document.querySelector('#right'), 0.1, false);
+      playSound(document.querySelector('#right'), 0.3, false);
       this.flagsPosed--;
       htmlSquare.className = htmlSquare.className.replace(" flag", "");
       htmlSquare.children[1].textContent = "";
@@ -246,7 +246,7 @@ export default class Controller {
         !htmlSquare.className.includes("opened") &&
         !htmlSquare.className.includes("flag")
       ) {
-        playSound(document.querySelector('#left'), 0.1, false)
+        playSound(document.querySelector('#left'), 0.3, false)
         const closeBomb = closeBombs.length > 0 ? closeBombs.length.toString() : "";
         htmlSquare.children[1].textContent = closeBomb;
         htmlSquare.className = htmlSquare.className.replace("unknown", "");

@@ -114,6 +114,6 @@ export function playRandomMusic(){
   document.querySelectorAll('audio').forEach(a => isOncePlaying = isOncePlaying ? isOncePlaying : !a.paused);
 
   !isOncePlaying && playSound(
-    document.querySelector(`#music${getRandomInt(3)}`), 0.1, false,
+    document.querySelector(`#music${getRandomInt(3)}`), 1, false,
     () => {playRandomMusic()});
 }

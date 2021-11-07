@@ -1,10 +1,11 @@
 {
   "name": "minor",
-  "version": "1.0.0",
+  "version": "2.4.0",
   "main": "src/app.ts",
   "repository": "https://github.com/SpayShawl/minor.git",
-  "author": "Alexis Fournier <pro.fournieralexis@gmail.com>",
+  "author": "Spay Shawl <spayshawl@gmail.com>",
   "license": "MIT",
+  "private": "true",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch",
