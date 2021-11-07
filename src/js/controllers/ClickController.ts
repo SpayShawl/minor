@@ -52,11 +52,14 @@ export default class ClickController {
   }
 
   middleClick(event:any){
-    if(Controller.bombs.length > 0 && event.button === 1 && Controller.nbJoker > 0){
-      const target = event.target.className.includes("square")
-      ? event.target
-      : event.target.parentElement;
+    const target = event.target.className.includes("square")
+    ? event.target
+    : event.target.parentElement;
 
+    event.preventDefault();
+    if(Controller.bombs.length > 0 && event.button === 1 && Controller.nbJoker > 0 && 
+      target.className.includes("unknown") && !target.className.includes("flag")
+    ){
       const square = new Square(parseInt(target.dataset.line), parseInt(target.dataset.column))
       if(square.isBomb(Controller.bombs)){
         this.controller.placeFlag(square);

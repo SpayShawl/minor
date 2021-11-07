@@ -1,3 +1,4 @@
+import confetti from "canvas-confetti";
 import seedrandom from "seedrandom";
 import Controller from "../controllers/Controller";
 import Square from "../metier/Square";
@@ -90,6 +91,8 @@ export function getEncryptions(value:string):string[]{
     case 'GRATIAS':
       return ["MERCI D'AVOIR JOUÉ !"];
     case 'TE':
+      confetti({angle: 45});
+      confetti({angle: 135});
       return ["TU ES VICTORIEUX !"];
     case 'easy':
       return ["FACILIS"];
@@ -104,6 +107,8 @@ export function getEncryptions(value:string):string[]{
     case 'MERCI':
       return ["GRATIAS LUDENS !"];
     case 'TU':
+      confetti({angle: 45});
+      confetti({angle: 135});
       return ["TE PRAEPOSSUM !"];
   }
 }
@@ -111,7 +116,7 @@ export function getEncryptions(value:string):string[]{
 export function playRandomMusic(){
   let isOncePlaying = false;
   
-  document.querySelectorAll('audio').forEach(a => isOncePlaying = isOncePlaying ? isOncePlaying : !a.paused);
+  document.querySelectorAll('audio').forEach(a => isOncePlaying = isOncePlaying ? isOncePlaying : a.id.includes('music') && !a.paused);
 
   !isOncePlaying && playSound(
     document.querySelector(`#music${getRandomInt(3)}`), 1, false,
