@@ -140,6 +140,7 @@ from { opacity: 1.0; } to { opacity: 0.0; }
 
 #controls, #nbBomb{
     width: fit-content;
+    width: -moz-fit-content;
     margin: auto;
     font-size: 1.3rem;
 }
@@ -335,6 +336,7 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     opacity: 0;
     position:absolute;
     width: fit-content;
+    width: -moz-fit-content;
     top: 37%;
     transform: translateY(50%);
     left:0;

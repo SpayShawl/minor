@@ -13,10 +13,7 @@ export default class DifficultyController {
     document
       .querySelectorAll(".difficulty")
       .forEach((picker: any) =>
-        picker.addEventListener(
-          "click",
-          this.changeDifficulty.bind(this, picker.dataset.value)
-        )
+        picker.onclick = this.changeDifficulty.bind(this)
       );
   }
 
@@ -24,7 +21,7 @@ export default class DifficultyController {
    * Load the difficulty saved
    */
   loadConfig() {
-    this.changeDifficulty(sessionStorage.getItem("difficulty"), {pointerType: "mouse"});
+    this.changeDifficulty({detail: 1, difficulty: sessionStorage.getItem("difficulty")});
   }
 
   /**
@@ -32,8 +29,9 @@ export default class DifficultyController {
    * @param difficulty
    * @return {void}
    */
-  changeDifficulty(difficulty:string, e:any) {
-    if(e.pointerType){
+  changeDifficulty(e:any) {
+    if(e.detail === 1){
+      const difficulty = e.target?.dataset?.value || e.difficulty;
       const params = this.getDifficulty(difficulty);
 
       sessionStorage.setItem("difficulty", difficulty);
