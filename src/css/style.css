@@ -224,6 +224,14 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     width: 2em;
 }
 
+.value {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
 #grid:hover, .value:hover, .square span:hover{
     cursor: crosshair;
 }
@@ -337,7 +345,7 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     position:absolute;
     width: fit-content;
     width: -moz-fit-content;
-    top: 37%;
+    top: 25%;
     transform: translateY(50%);
     left:0;
     right:0;
@@ -370,8 +378,30 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     margin-bottom: 2em;
 }
 
+/* Replay button */
+.replay {
+    position: absolute;
+    cursor: pointer;
+    width: 67px;
+    height: 67px;
+    border: solid 0.1em;
+    border-radius: 3em;
+}
+
+.replay:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: 600;
+    position: absolute;
+    left: 26%;
+    top: 28%;
+    font-size: 2rem;
+    content: "\f2f9";
+    transition: 250ms;
+}
+
 /* Hide default HTML checkbox */
 .switch input {
+    display: none;
     -moz-appearance: none;
     width: 0;
     height: 0;
@@ -381,8 +411,8 @@ from { opacity: 1.0; } to { opacity: 0.0; }
 .slider {
     position: absolute;
     cursor: pointer;
-    width: 4em;
-    height: 4em;
+    width: 67px;
+    height: 67px;
     border: solid 0.1em;
     border-radius: 3em;
 }
@@ -398,6 +428,7 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     transition: 250ms;
     opacity: 25%;
 }
+
 .rules {
     margin-top: 6em;
     text-align: center;

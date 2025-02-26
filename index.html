@@ -22,17 +22,21 @@
     </audio>
     <audio id="right" src="src/assets/audio/right.mp3">
     </audio>
+    <!--
     <audio id="music0" src="src/assets/audio/surface-tension.mp3">
     </audio>
     <audio id="music1" src="src/assets/audio/tropic-of-capricorn.mp3">
     </audio>
     <audio id="music2" src="src/assets/audio/moisiture.mp3">
     </audio>
+    -->
     <header id="header">
+        <!--
         <div id="themes">
             <button class="theme-picker" id="picker-default" data-value="default">8</button>
             <button class="theme-picker" id="picker-bits" data-value="8-bits">8</button>
         </div>
+        -->
         <nav id="difficulty-picker">
             <button class="difficulty crypted" data-value="easy">FACILIS</button>
             <button class="difficulty crypted" data-value="medium">MODUS</button>
@@ -57,11 +61,19 @@
         <div id="game">
             <div id="grid"></div>
         </div>
-        <!--<div class="buttons">
-                                    <button class="button">Ludere</button>
-                                </div>-->
+        <!--
+        <div class="buttons">
+            <button class="button">Ludere</button>
+        </div>
+        -->
         <div id="nbBomb" class="crypted">SPECUS :</div>
-        <div id="end" class="crypted">GRATIAS LUDENS !</div>
+        <div id="end" class="crypted">
+            <p id="end-title">GRATIAS LUDENS !</p>
+            <label class="switch" for="replay">
+                <input type="button" id="replay">
+                <span class="replay"></span>
+            </label>
+        </div>
         <label class="switch" for="leftFlag">
             <input type="checkbox" id="leftFlag">
             <span class="slider"></span>
@@ -200,7 +212,7 @@
                 votre curseur sur la <span class="colored">bande foncée</span> en haut de l'écran</p>
     
             <h3>Musiques & Sons</h3>
-            <p>Les sons et les musiques sont joués <span class="colored">automatiquement</span>.
+            <p>Les sons et les musiques sont jouées <span class="colored">automatiquement</span>.
                 Si vous ne les voulez pas, vous pouvez désactiver le son de la fenêtre depuis votre navigateur.</p>
         </article>
     </section>
@@ -208,6 +220,4 @@
         <p>V2.4.2 - Developed by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
     </footer>
 </body>
-<script>
-</script>
 </html>
