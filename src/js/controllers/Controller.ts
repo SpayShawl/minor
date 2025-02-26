@@ -9,23 +9,23 @@ import KeyboardController from "./KeyboardController";
 import confetti from "canvas-confetti";
 import HTMLSquare from "../components/HTMLSquare";
 import TextScramble from "../utils/Scramble";
+import ReplayController from "./ReplayController";
 export default class Controller {
   static bombs:Square[] = [];
   static maxLine = 0;
   static maxColumn = 0;
   static nbBombs = 0;
   static nbJoker = 0;
+  static flagsPosed = 0;
 
   seed?: string;
   grid: HTMLElement;
-  flagsPosed: number;
   playing: boolean;
   chrono: ChronoController;
   clickController: ClickController;
 
   constructor() {
     this.grid = document.getElementById("grid");
-    this.flagsPosed = 0;
     this.chrono = new ChronoController();
     this.clickController = new ClickController(this);
 
@@ -44,6 +44,7 @@ export default class Controller {
     new FlagController();
     new DifficultyController(this);
     new KeyboardController(this);
+    new ReplayController(this);
   }
 
   registerListeners():void {
@@ -117,7 +118,7 @@ export default class Controller {
 
   resetProperties(){
     this.chrono.resetChrono();
-    this.flagsPosed = 0;
+    Controller.flagsPosed = 0;
     Controller.bombs = [];
     this.clickController.click = new Square(undefined, undefined);
     this.grid.style.opacity = "100%";
@@ -132,7 +133,7 @@ export default class Controller {
    * Check if the game is won
    */
   checkWin():void {
-    if (Controller.nbBombs === this.flagsPosed) {
+    if (Controller.nbBombs === Controller.flagsPosed) {
       const unknowns = document.querySelectorAll(".unknown") as any;
       let isAllBombs = true;
 
@@ -164,12 +165,12 @@ export default class Controller {
       !htmlSquare.className.includes("flag")
     ) {
       playSound(document.querySelector('#left'), 0.3)
-      this.flagsPosed++;
+      Controller.flagsPosed++;
       htmlSquare.className += " flag";
       htmlSquare.children[1].textContent = "";
     } else if (htmlSquare.className.includes("flag")) {
       playSound(document.querySelector('#right'), 0.3, false);
-      this.flagsPosed--;
+      Controller.flagsPosed--;
       htmlSquare.className = htmlSquare.className.replace(" flag", "");
       htmlSquare.children[1].textContent = "";
     }
@@ -182,7 +183,7 @@ export default class Controller {
    */
   updateBombsNumber() {
     document.getElementById("nbBomb").textContent = `SPECUS : ${
-      Controller.bombs.length - this.flagsPosed
+      Controller.bombs.length - Controller.flagsPosed
     }`;
   }
 
@@ -220,7 +221,7 @@ export default class Controller {
       });
 
       this.chrono.startChrono();
-      playRandomMusic();
+      //playRandomMusic();
       this.updateBombsNumber();
     }
   }
@@ -295,7 +296,7 @@ export default class Controller {
    * @return {void}
    */
   finishGame(title:string) {
-    document.getElementById("end").textContent = title;
+    document.getElementById("end-title").textContent = title;
     this.playing = false;
     this.chrono.stopChrono();
     this.grid.style.opacity = "20%";

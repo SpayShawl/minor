@@ -87,7 +87,7 @@ export function getEncryptions(value:string):string[]{
     case 'INCREDIBILIS':
       return ["EXTREME"];
     case 'SPECUS':
-      return [`BOMBES : ${Controller.bombs.length}`];
+      return [`BOMBES : ${Controller.bombs.length - Controller.flagsPosed}`];
     case 'GRATIAS':
       return ["MERCI D'AVOIR JOUÉ !"];
     case 'TE':
@@ -103,7 +103,7 @@ export function getEncryptions(value:string):string[]{
     case 'incredible':
       return ["INCREDIBILIS"];
     case 'BOMBES':
-      return [`SPECUS : ${Controller.bombs.length}`];
+      return [`SPECUS : ${Controller.bombs.length - Controller.flagsPosed}`];
     case 'MERCI':
       return ["GRATIAS LUDENS !"];
     case 'TU':
