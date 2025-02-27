@@ -122,3 +122,15 @@ export function playRandomMusic(){
     document.querySelector(`#music${getRandomInt(3)}`), 1, false,
     () => {playRandomMusic()});
 }
+
+export function formatDate(date: Date) {
+  return date.toLocaleString('fr-FR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  })
+}

@@ -3,13 +3,13 @@
     color: #F9F9F9 !important;
 }
 
-#theme-default .difficulty{
+#theme-default .difficulty, #theme-default #scores-button {
     color: #F9F9F9 !important;
     background-color: #36393F !important;
     border-color: #F9F9F9 !important;
 }
 
-#theme-default .difficulty:hover{
+#theme-default .difficulty:hover, #theme-default #scores-button:hover {
     background-color: #F9F9F9 !important;
     color: #36393F !important;
 }

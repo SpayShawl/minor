@@ -11,7 +11,7 @@ header {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 #main {
@@ -105,7 +105,8 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     margin-bottom: 2em;
 }
 
-.difficulty{
+.difficulty, #scores-button {
+    height: 35px;
     width: 9em;
     border: solid 0.1em;
     border-radius: 3em;
@@ -114,7 +115,7 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     transition: transform 250ms ease;
 }
 
-.difficulty:hover{
+.difficulty:hover, #scores-button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
@@ -345,7 +346,6 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     position:absolute;
     width: fit-content;
     width: -moz-fit-content;
-    top: 25%;
     transform: translateY(50%);
     left:0;
     right:0;
@@ -354,6 +354,51 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     text-decoration: overline;
     text-align: center;
     transition: opacity 1s ease;
+}
+
+/* scores */
+
+#scores-table {
+    display: none;
+}
+
+
+#scores-nickname {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 1.2rem;
+}
+
+#scores-row-play-cell, #scores-save {
+    text-align: center;
+}
+
+#scores-save-button, .scores-row-play-button {
+    background-color: transparent;
+    border: none;
+}
+
+#scores-save-button:before, .scores-row-play-button:before {
+    font-family: "Font Awesome 5 Free", serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+#scores-save-button:hover:before, .scores-row-play-button:hover:before {
+    color: #A1DB58
+}
+
+#scores-save-button:before {
+    content: "\f0c7";
+}
+
+.scores-row-play-button:before {
+    content: "\f04b";
 }
 
 /* width */
@@ -388,6 +433,10 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     border-radius: 3em;
 }
 
+.replay:hover {
+    border-color: #A1DB58;
+}
+
 .replay:before {
     font-family: "Font Awesome 5 Free", serif;
     font-weight: 600;
@@ -397,6 +446,10 @@ from { opacity: 1.0; } to { opacity: 0.0; }
     font-size: 2rem;
     content: "\f2f9";
     transition: 250ms;
+}
+
+.replay:hover:before {
+    color: #A1DB58;
 }
 
 /* Hide default HTML checkbox */
@@ -481,6 +534,13 @@ footer {
     font-size: 0.9rem;
 }
 
+.seed {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
 
 #seed {
     width: 20%;

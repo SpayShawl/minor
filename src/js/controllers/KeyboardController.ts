@@ -1,8 +1,12 @@
+import {debounce} from 'lodash';
+
 import { getRandomColor, playSound } from "../utils/Utils";
 import Controller from "./Controller";
 
 export default class KeyboardController {
     controller: Controller;
+    isOpen: boolean = false;
+    debouncedToggle = debounce(this.toggleKeyboard, 200);
 
     constructor(controller:Controller){
         this.controller = controller;
@@ -20,11 +24,8 @@ export default class KeyboardController {
     }
 
     controlKeyboardModal(event:any){
-        if(event.key === 'Shift'){
-            this.openKeyboard();
-        }
-        else if(event.key === 'Escape'){
-            this.closeKeyboard();
+        if(event.key === 'Escape'){
+            this.debouncedToggle();
         }
         else {
             const key = document.getElementById(event.key?.toUpperCase()) || event.target;
@@ -49,6 +50,11 @@ export default class KeyboardController {
         document.getElementById('main').className = "";
     }
 
+    toggleKeyboard(){
+        this.isOpen ? this.closeKeyboard() : this.openKeyboard();
+        this.isOpen = !this.isOpen;
+    }
+
     colorizeKey(key: any){
         if(key.className === "key") {
             key.style.color = getRandomColor();
@@ -68,14 +74,24 @@ export default class KeyboardController {
 
             playSound(document.querySelector('#typing'));
 
-            letter.length === 1 && this.addLetter(value, letter);
+            letter.length === 1 && !this.controller.scoreController.isVisible && this.addLetter(value, letter);
             letter === "BACKSPACE" && !value.textContent.includes("#") && this.removeLetter(value);
             letter === "ENTER" && value.textContent.length === 8 && this.sendValue(value);
+
+            this.checkResetGame(letter,  value.textContent);
+            this.controller.scoreController.checkSaveScore(letter);
+
             value.textContent.length === 0 && this.showPlaceholder(value);
         }
     }
 
-    addLetter(value:any, letter:any){
+    checkResetGame(letter: string, value: string) {
+        if (letter === "ENTER" && value === "#SEED" && !this.controller.scoreController.isVisible) {
+            this.sendValue({textContent: undefined});
+        }
+    }
+
+    addLetter(value:any, letter:any) {
         if(value.textContent.includes("#")){
             value.textContent = "";
             value.className = "";

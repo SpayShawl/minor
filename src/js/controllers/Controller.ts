@@ -1,5 +1,5 @@
 import Square, { SquareSize, SquareState } from "../metier/Square";
-import { getClickbySeed, getEncryptions, getRandomSeed, getUniqBomb, playRandomMusic, playSound } from "../utils/Utils";
+import { getClickbySeed, getEncryptions, getRandomSeed, getUniqBomb, playSound } from "../utils/Utils";
 import ChronoController from "./ChronoController";
 import ClickController from "./ClickController";
 import ThemeController from "./ThemeController";
@@ -10,6 +10,8 @@ import confetti from "canvas-confetti";
 import HTMLSquare from "../components/HTMLSquare";
 import TextScramble from "../utils/Scramble";
 import ReplayController from "./ReplayController";
+import ScoreController from "./ScoreController";
+
 export default class Controller {
   static bombs:Square[] = [];
   static maxLine = 0;
@@ -18,23 +20,28 @@ export default class Controller {
   static nbJoker = 0;
   static flagsPosed = 0;
 
+  isWin: boolean = false;
   seed?: string;
   grid: HTMLElement;
   playing: boolean;
   chrono: ChronoController;
   clickController: ClickController;
+  scoreController: ScoreController;
+  difficultyController: DifficultyController;
 
   constructor() {
     this.grid = document.getElementById("grid");
     this.chrono = new ChronoController();
     this.clickController = new ClickController(this);
+    this.scoreController = new ScoreController(this);
+    this.difficultyController = new DifficultyController(this);
 
     this.loadControllers();
     this.registerListeners();
   }
 
   setSeed(newSeed: string){
-    document.querySelector(".seed").textContent = newSeed;
+    document.querySelector(".seed").textContent = newSeed ?? "#SEED";
     this.seed = newSeed;
     this.loadGame(undefined, this.seed);
   }
@@ -42,7 +49,6 @@ export default class Controller {
   loadControllers():void {
     new ThemeController();
     new FlagController();
-    new DifficultyController(this);
     new KeyboardController(this);
     new ReplayController(this);
   }
@@ -76,7 +82,8 @@ export default class Controller {
     this.createGrid();
     this.resetProperties();
     this.grid.focus();
-    if(seed){
+
+    if (seed){
       const clickSeed = this.seed.substr(6);
       const click = new Square(
         parseInt(clickSeed.charAt(0), 36),
@@ -118,14 +125,26 @@ export default class Controller {
 
   resetProperties(){
     this.chrono.resetChrono();
+    this.isWin = false;
     Controller.flagsPosed = 0;
     Controller.bombs = [];
     this.clickController.click = new Square(undefined, undefined);
+    this.scoreController.tableBody.replaceChildren();
+    this.scoreController.isVisible = false;
     this.grid.style.opacity = "100%";
     this.clickController.click = new Square(undefined, undefined);
     this.grid.style.opacity = "100%";
+
+    if (this.difficultyController) {
+      Controller.nbJoker = this.difficultyController.getDifficulty().joker;
+    }
+
     document.getElementById("end").style.opacity = "0";
     document.getElementById("end").style.zIndex = "-1";
+    document.getElementById("end").style.top = "0";
+    document.getElementById('end-title').style.display = "block";
+    document.getElementById('scores-button').style.display = "inline-block";
+    document.getElementById('scores-table').style.display = "none";
     this.playing = true;
   }
 
@@ -148,6 +167,7 @@ export default class Controller {
       if (isAllBombs) {
         confetti({angle: 45});
         confetti({angle: 135});
+        this.isWin = true;
         this.finishGame("TE PRAEPOSSUM !");
       }
     }
@@ -274,6 +294,7 @@ export default class Controller {
       htmlSquare.className += " bomb";
       htmlSquare.children[1].textContent = "";
       if (!isFinish) {
+        this.isWin = false;
         this.finishGame("GRATIAS LUDENS !");
       }
     }

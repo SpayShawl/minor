@@ -4,6 +4,8 @@ import Controller from "./Controller";
 export default class ClickController {
   controller: Controller;
   click: Square;
+  lastLeftClickTime = 0;
+  clickTimeoutId: any = null;
 
   constructor(controller:Controller) {
     this.controller = controller;
@@ -16,8 +18,22 @@ export default class ClickController {
       "contextmenu",
       this.rightClick.bind(this)
     );
-    this.controller.grid.addEventListener("click", this.leftClick.bind(this));
+    this.controller.grid.addEventListener("click", this.handleLeftClick.bind(this));
     this.controller.grid.addEventListener("mousedown", this.middleClick.bind(this));
+  }
+
+  handleLeftClick(event:any) {
+    let currentTime = new Date().getTime();
+
+    if (currentTime - this.lastLeftClickTime <= 200) {
+      clearTimeout(this.clickTimeoutId);
+      this.middleClick(event, true)
+    } else {
+      this.clickTimeoutId = setTimeout(() => {
+        this.leftClick(event, false)
+      }, 200);
+    }
+    this.lastLeftClickTime = currentTime;
   }
 
   /**
@@ -51,14 +67,20 @@ export default class ClickController {
     }
   }
 
-  middleClick(event:any){
+  middleClick(event:any, dblClick:boolean = false) {
     const target = event.target.className.includes("square")
     ? event.target
     : event.target.parentElement;
 
     event.preventDefault();
-    if(Controller.bombs.length > 0 && event.button === 1 && Controller.nbJoker > 0 && 
-      target.className.includes("unknown") && !target.className.includes("flag")
+    if(
+      (
+        Controller.bombs.length > 0
+        && Controller.nbJoker > 0
+        && target.className.includes("unknown")
+        && !target.className.includes("flag")
+      )
+      && (event.button === 1 || dblClick)
     ){
       const square = new Square(parseInt(target.dataset.line), parseInt(target.dataset.column))
       if(square.isBomb(Controller.bombs)){

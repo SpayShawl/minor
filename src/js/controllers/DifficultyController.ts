@@ -2,6 +2,7 @@ import Controller from "./Controller";
 
 export default class DifficultyController {
   controller: Controller;
+  difficulty: string;
 
   constructor(controller:Controller) {
     this.controller = controller;
@@ -32,6 +33,7 @@ export default class DifficultyController {
   changeDifficulty(e:any) {
     if(e.detail === 1){
       const difficulty = e.target?.dataset?.value || e.difficulty;
+      this.difficulty = difficulty ?? "easy";
       const params = this.getDifficulty(difficulty);
 
       sessionStorage.setItem("difficulty", difficulty);
@@ -49,7 +51,7 @@ export default class DifficultyController {
    * @param difficulty
    * @return {{params: {bombs: number, line: number, column: number}}}
    */
-  getDifficulty(difficulty:string) {
+  getDifficulty(difficulty:string = this.difficulty) {
     let params;
     switch (difficulty) {
       case "medium":

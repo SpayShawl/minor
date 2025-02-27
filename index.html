@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="src/css/themes/8bits.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" type="text/css">
     <script src="dist/bundle.js" defer></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    </style>
 </head>
 <body id="body">
     <audio id="typing" src="src/assets/audio/typing.mp3">
@@ -69,6 +80,34 @@
         <div id="nbBomb" class="crypted">SPECUS :</div>
         <div id="end" class="crypted">
             <p id="end-title">GRATIAS LUDENS !</p>
+            <button id="scores-button">SCORES</button>
+            <table id="scores-table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Temps</th>
+                    <th>Seed</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="scores-table-body">
+                </tbody>
+                <tfoot id="scores-footer">
+                    <tr>
+                        <td>
+                            <label for="scores-nickname"></label>
+                            <input type="text" id="scores-nickname" placeholder="Pseudo">
+                        </td>
+                        <td id="scores-time"></td>
+                        <td id="scores-seed"></td>
+                        <td id="scores-date"></td>
+                        <td id="scores-save">
+                            <button id="scores-save-button"></button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
             <label class="switch" for="replay">
                 <input type="button" id="replay">
                 <span class="replay"></span>
@@ -164,8 +203,8 @@
                 <li>Clic gauche: Révéler une case</li>
                 <li>Clic droits: Poser un drapeau</li>
                 <li>Clic molette: Utiliser un joker</li>
-                <li>Shift: Ouvrir le menu de saisie</li>
-                <li>Echap: Quitter le menu de saisie</li>
+                <li>Echap: Basculer le menu de seed</li>
+                <li>Entrer: Valider la seed</li>
             </ul>
             <h3>Inverser les clics</h3>
             <p>Si vous préférer utiliser le clic gauche pour poser un drapeau, vous pouvez cocher le bouton en forme de
@@ -201,9 +240,9 @@
             </p>
             <h4>Saisir une seed</h4>
             <p>C'est bien beau d'avoir une seed, mais comment la saisir ? Ils vous suffit d'appuyer sur la touche <span
-                    class="colored">"Shift"</span>, un
+                    class="colored">"Echap"</span>, un
                 clavier virtuel apparaîtra.<br>
-                Il ne vous reste plus qu'a saisir la seed voulu et à appuyer sur <span class="colored">"Entrer"</span>.
+                Il ne vous reste plus qu'à saisir la seed voulu et à appuyer sur <span class="colored">"Entrer"</span>.
                 Une fois que vous cliquerez sur <span class="colored">"Jouer"</span>, la partie se lancera avec la seed
                 donnée.
             </p>
@@ -217,7 +256,7 @@
         </article>
     </section>
     <footer>
-        <p>V2.4.2 - Developed by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
+        <p>V3.0.0 - Developed by <a href="https://github.com/SpayShawl">Spay Shawl</a></p>
     </footer>
 </body>
 </html>

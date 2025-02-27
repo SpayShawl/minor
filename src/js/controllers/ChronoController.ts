@@ -3,12 +3,14 @@ export default class ChronoController {
   end: any;
   diff: any;
   id: any;
+  chronoDiv: HTMLElement;
 
   constructor() {
     this.start = 0;
     this.end = 0;
     this.diff = 0;
     this.id = 0;
+    this.chronoDiv = document.querySelector(".chrono");
   }
 
   /**
@@ -30,11 +32,10 @@ export default class ChronoController {
     this.diff = new Date(this.diff);
     let sec = this.diff.getSeconds();
     let min = this.diff.getMinutes();
+    let milliseconds = this.diff.getMilliseconds();
 
-    document.querySelector(".chrono").textContent = `${
-      min > 0 ? min + "M" : ""
-    } ${sec}S`;
-    this.id = setTimeout(() => this.chrono(), 1000);
+    this.chronoDiv.textContent = `${min}:${sec}:${milliseconds}`;
+    this.id = setTimeout(() => this.chrono(), 1);
   }
 
   /**
@@ -51,6 +52,13 @@ export default class ChronoController {
    */
   resetChrono() {
     this.stopChrono();
-    document.querySelector(".chrono").textContent = "0S";
+    this.chronoDiv.textContent = "0:0:000";
+  }
+
+  getTime() {
+    return (this.diff.getMinutes() * 60)
+      + this.diff.getSeconds()
+      + this.diff.getMilliseconds()
+      / 1000;
   }
 }
